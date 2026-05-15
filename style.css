@@ -77,6 +77,14 @@ body {
     color: var(--text-primary);
 }
 
+.sidebar-nav li.active a {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-left: -12px;
+    transition: all 0.3s ease;
+}
+
 .secondary-nav {
     margin-top: 24px;
 }
@@ -128,10 +136,18 @@ body {
 }
 
 /* Main Content */
+@keyframes gradientPulse {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .main-content {
     flex-grow: 1;
     background-color: var(--bg-highlight);
-    background: linear-gradient(to bottom, #1f1f1f, var(--bg-highlight) 30%);
+    background: linear-gradient(145deg, #1f1f1f, #121212, #0d121a, #121212);
+    background-size: 200% 200%;
+    animation: gradientPulse 15s ease infinite;
     border-radius: 8px;
     margin: 8px 8px 0 0;
     overflow-y: auto;
@@ -162,8 +178,10 @@ body {
     position: sticky;
     top: 0;
     z-index: 10;
-    background-color: rgba(18, 18, 18, 0.7); /* translucent */
-    backdrop-filter: blur(10px);
+    background-color: rgba(18, 18, 18, 0.6); /* translucent */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .nav-arrows button {
@@ -223,9 +241,15 @@ body {
     width: 232px;
     height: 232px;
     background: linear-gradient(135deg, #450af5, #c4efd9);
-    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 16px 40px rgba(69, 10, 245, 0.3);
     background-size: cover;
     background-position: center;
+    border-radius: 8px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.playlist-cover:hover {
+    transform: scale(1.05);
 }
 
 .playlist-info {
@@ -277,12 +301,14 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.1s, background-color 0.2s;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 20px rgba(29, 185, 84, 0.3);
 }
 
 .btn-play-large:hover {
-    transform: scale(1.04);
+    transform: scale(1.08) translateY(-2px);
     background-color: var(--spotify-green-hover);
+    box-shadow: 0 12px 28px rgba(29, 185, 84, 0.5);
 }
 
 .btn-icon {
@@ -323,20 +349,25 @@ body {
     display: grid;
     grid-template-columns: 40px 4fr 3fr 2fr minmax(120px, 1fr);
     padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 6px;
     align-items: center;
     color: var(--text-secondary);
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
 .song-row:hover {
-    background-color: var(--bg-hover);
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-color: rgba(255, 255, 255, 0.03);
 }
 
 .song-row.playing {
     color: var(--spotify-green);
+    background-color: rgba(29, 185, 84, 0.05);
 }
 
 .song-number {
@@ -409,8 +440,10 @@ body {
 /* Bottom Player */
 .player {
     height: var(--player-height);
-    background-color: var(--bg-elevated);
-    border-top: 1px solid #282828;
+    background-color: rgba(24, 24, 24, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
